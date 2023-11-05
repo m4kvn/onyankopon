@@ -1,0 +1,3 @@
+[submodule "scripts/git/s3s"]
+	path = scripts/git/s3s
+	url = https://github.com/frozenpandaman/s3s
