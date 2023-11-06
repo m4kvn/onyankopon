@@ -26,6 +26,9 @@ if [ ! -d "$HOME/.rustup" ]; then
     echo "$TAG restup is not initialized."
     rustup-init
     rustup update
+    rustup component add rustfmt
+    rustup component add clippy
+    rustup component add rust-src
 else
     echo "$TAG restup is already initialized."
 fi
@@ -45,3 +48,15 @@ do
         cargo install ${i}
     fi
 done < "Cargofile"
+
+# VSCode
+VSCODE_EXTENSION_INSTALLS=$(code --list-extensions)
+while IFS= read -r line
+do
+    if [[ $VSCODE_EXTENSION_INSTALLS == *"$line"* ]]; then
+        echo "$TAG VSCODE_EXTENSION_INSTALLS contains \"${line}\"."
+    else
+        echo "$TAG VSCODE_EXTENSION_INSTALLS does not contain \"${line}\". Installing..."
+        code --install-extension ${i}
+    fi
+done < "VSCodeExtensionfile"
